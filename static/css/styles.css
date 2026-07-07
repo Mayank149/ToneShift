@@ -36,10 +36,10 @@ body::before {
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px),
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06), transparent 16%),
-    radial-gradient(circle at 80% 30%, rgba(255,255,255,0.04), transparent 14%);
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.06), transparent 16%),
+    radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.04), transparent 14%);
   background-size: 58px 58px, 58px 58px, 100% 100%, 100% 100%;
   mask-image: radial-gradient(circle at center, black 28%, transparent 88%);
   pointer-events: none;
@@ -247,6 +247,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .emoji-slider-card {
+  position: relative;
   padding: 16px;
   border-radius: 22px;
   border: 1px solid rgba(255, 255, 255, 0.09);
@@ -254,6 +255,29 @@ input[type="range"]::-webkit-slider-thumb {
     linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03)),
     radial-gradient(circle at top left, rgba(201, 155, 255, 0.08), transparent 58%);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.emoji-slider-card::before {
+  content: "";
+  position: absolute;
+  inset: auto -20% -26px;
+  height: 64px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.18), transparent 68%);
+  opacity: 0.55;
+  filter: blur(10px);
+  pointer-events: none;
+  animation: pulseGlow 8s ease-in-out infinite;
+}
+
+.emoji-slider-card::after {
+  content: "";
+  position: absolute;
+  inset: 66px 16px auto;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  opacity: 0.9;
+  pointer-events: none;
 }
 
 .emoji-slider-header {
@@ -261,6 +285,8 @@ input[type="range"]::-webkit-slider-thumb {
   align-items: center;
   gap: 12px;
   margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
 }
 
 .emoji-badge {
@@ -291,49 +317,115 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .emoji-slider {
+  position: relative;
+  z-index: 1;
   width: 100%;
-  height: 14px;
+  height: 16px;
   appearance: none;
   border-radius: 999px;
-  background:
-    linear-gradient(90deg, rgba(201, 155, 255, 0.95), rgba(139, 125, 255, 0.95), rgba(255, 143, 224, 0.95));
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.36);
+  background: linear-gradient(90deg, rgba(201, 155, 255, 0.98), rgba(139, 125, 255, 0.98), rgba(255, 143, 224, 0.98));
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.36),
+    0 0 18px rgba(201, 155, 255, 0.18);
   outline: none;
 }
 
 .emoji-slider::-webkit-slider-thumb {
   appearance: none;
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #fff, #eddcff 55%, #b48bff 100%);
-  border: 2px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.28);
+  background: radial-gradient(circle at 30% 30%, #fff, #f4e8ff 48%, #c99bff 100%);
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  box-shadow:
+    0 0 0 6px rgba(201, 155, 255, 0.12),
+    0 10px 18px rgba(0, 0, 0, 0.35),
+    0 0 28px rgba(255, 143, 224, 0.22);
   cursor: pointer;
 }
 
 .emoji-slider::-moz-range-thumb {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #fff, #eddcff 55%, #b48bff 100%);
-  border: 2px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.28);
+  background: radial-gradient(circle at 30% 30%, #fff, #f4e8ff 48%, #c99bff 100%);
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  box-shadow:
+    0 0 0 6px rgba(201, 155, 255, 0.12),
+    0 10px 18px rgba(0, 0, 0, 0.35),
+    0 0 28px rgba(255, 143, 224, 0.22);
   cursor: pointer;
 }
 
 .emoji-rail {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
-  margin-top: 10px;
-  color: #d9ccf1;
+  position: relative;
+  height: 38px;
+  margin-top: 14px;
+  color: #e8ddff;
   font-size: 1.05rem;
-  text-align: center;
 }
 
 .emoji-rail span {
-  padding: 4px 0;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.16);
+}
+
+.tone-rail span:nth-child(1) {
+  left: 0%;
+}
+
+.tone-rail span:nth-child(2) {
+  left: 33.333%;
+}
+
+.tone-rail span:nth-child(3) {
+  left: 66.666%;
+}
+
+.tone-rail span:nth-child(4) {
+  left: 100%;
+}
+
+.audience-rail span:nth-child(1) {
+  left: 0%;
+}
+
+.audience-rail span:nth-child(2) {
+  left: 25%;
+}
+
+.audience-rail span:nth-child(3) {
+  left: 50%;
+}
+
+.audience-rail span:nth-child(4) {
+  left: 75%;
+}
+
+.audience-rail span:nth-child(5) {
+  left: 100%;
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    transform: scaleX(0.96);
+    opacity: 0.45;
+  }
+
+  50% {
+    transform: scaleX(1.02);
+    opacity: 0.72;
+  }
 }
 
 .primary-btn {
@@ -439,12 +531,12 @@ input[type="range"]::-webkit-slider-thumb {
 
 .tone-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(114, 229, 255, 0.32);
+  border-color: rgba(201, 155, 255, 0.32);
 }
 
 .tone-card.active {
-  border-color: rgba(114, 229, 255, 0.55);
-  box-shadow: inset 0 0 0 1px rgba(114, 229, 255, 0.18);
+  border-color: rgba(201, 155, 255, 0.55);
+  box-shadow: inset 0 0 0 1px rgba(201, 155, 255, 0.18);
 }
 
 .tone-card h4 {
@@ -510,9 +602,5 @@ input[type="range"]::-webkit-slider-thumb {
   .control-row,
   .hero-stats {
     grid-template-columns: 1fr;
-  }
-
-  .dial {
-    width: min(100%, 260px);
   }
 }
