@@ -17,16 +17,16 @@
         <div>
           <p class="eyebrow">ToneShift</p>
           <h1>Rewrite text for any audience.</h1>
-          <p class="subhead">Transform one draft into four convincing versions: formal, casual, child-friendly, and executive summary. Tune length and formality, then inspect meaning preservation before you ship.</p>
+          <p class="subhead">Transform one draft into a tone-selected rewrite. Tune length and formality, then inspect meaning preservation before you ship.</p>
         </div>
         <div class="hero-stats">
           <div class="stat">
-            <span>4+</span>
-            <label>distinct tones</label>
+            <span>4</span>
+            <label>tone modes</label>
           </div>
           <div class="stat">
-            <span>1 click</span>
-            <label>to rotate the dial</label>
+            <span>1</span>
+            <label>selected rewrite</label>
           </div>
           <div class="stat">
             <span>AI check</span>
@@ -105,50 +105,42 @@
           </div>
 
           <button id="rewriteBtn" class="primary-btn" type="button">Generate rewrites</button>
-          <p class="note">The app returns four tone variants, a comparison summary, and a back-translation drift flag.</p>
+          <p class="note">The app returns one tone-selected rewrite, a comparison summary, and a back-translation drift flag.</p>
         </aside>
       </section>
 
       <section class="panel results is-hidden" id="resultsPanel">
         <div class="section-heading">
           <h2>Rewrites and checks</h2>
-          <p>Inspect the selected rewrite plus the comparison view and drift assessment.</p>
+          <p>Review the selected rewrite first, then the compact checks below.</p>
         </div>
 
         <div id="statusBar" class="status">Ready when you are.</div>
 
-        <div class="results-grid">
-          <section class="result-card featured">
-            <div class="result-head">
-              <h3>Selected rewrite</h3>
-              <span id="selectedMeta">formal · general audience</span>
-            </div>
-            <p id="selectedRewrite" class="rewrite-text">Your chosen rewrite will appear here.</p>
-          </section>
+        <section class="result-card rewrite-card">
+          <div class="result-head">
+            <h3>Selected rewrite</h3>
+            <span id="selectedMeta">formal · general audience</span>
+          </div>
+          <p id="selectedRewrite" class="rewrite-text">Your chosen rewrite will appear here.</p>
+        </section>
 
-          <section class="result-card">
+        <div class="checks-grid">
+          <section class="result-card compact-check">
             <div class="result-head">
-              <h3>Comparison view</h3>
-              <span>Meaning preservation</span>
+              <h3>Comparison</h3>
+              <span>Concise parity check</span>
             </div>
             <div id="comparisonView" class="comparison-box">Comparison insights will appear here.</div>
           </section>
 
-          <section class="result-card drift-card">
+          <section class="result-card compact-check">
             <div class="result-head">
-              <h3>Back-translation check</h3>
-              <span>Drift monitor</span>
+              <h3>Back-translation</h3>
+              <span>Concise drift check</span>
             </div>
             <div id="driftView" class="drift-box">No drift assessment yet.</div>
           </section>
-        </div>
-
-        <div class="tone-strip">
-          <div class="section-heading compact">
-            <h2>All tones</h2>
-            <p>Four rewrites generated from the same source.</p>
-          </div>
-          <div id="toneCards" class="tone-cards"></div>
         </div>
       </section>
     </main>

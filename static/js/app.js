@@ -39,7 +39,6 @@ const selectedRewrite = document.getElementById("selectedRewrite");
 const selectedMeta = document.getElementById("selectedMeta");
 const comparisonView = document.getElementById("comparisonView");
 const driftView = document.getElementById("driftView");
-const toneCards = document.getElementById("toneCards");
 
 function updateSliderLabels() {
   lengthValue.textContent = lengthSlider.value;
@@ -77,26 +76,6 @@ function cycleTone(direction = 1) {
 function cycleAudience(direction = 1) {
   state.audienceIndex = (state.audienceIndex + direction + audiences.length) % audiences.length;
   renderDial();
-}
-
-function buildToneCards(rewrites) {
-  toneCards.innerHTML = "";
-  rewrites.forEach((entry, index) => {
-    const card = document.createElement("article");
-    card.className = `tone-card${index === 0 ? " active" : ""}`;
-    card.innerHTML = `
-      <div class="badge">${entry.tone}</div>
-      <h4>${entry.audience}</h4>
-      <p>${entry.text}</p>
-    `;
-    card.addEventListener("click", () => {
-      selectedRewrite.textContent = entry.text;
-      selectedMeta.textContent = `${entry.tone} · ${entry.audience}`;
-      document.querySelectorAll(".tone-card").forEach((node) => node.classList.remove("active"));
-      card.classList.add("active");
-    });
-    toneCards.appendChild(card);
-  });
 }
 
 function renderComparison(comparison, sourceTextValue) {
@@ -154,10 +133,9 @@ async function rewrite() {
       throw new Error(data.error || "Rewrite request failed.");
     }
 
-    const activeRewrite = (data.rewrites || []).find((item) => item.tone === tones[state.toneIndex]) || data.rewrites?.[0];
-    selectedRewrite.textContent = activeRewrite?.text || "No rewrite returned.";
-    selectedMeta.textContent = `${activeRewrite?.tone || tones[state.toneIndex]} · ${activeRewrite?.audience || audiences[state.audienceIndex]}`;
-    buildToneCards(data.rewrites || []);
+    const activeRewrite = data.rewrite || {};
+    selectedRewrite.textContent = activeRewrite.text || "No rewrite returned.";
+    selectedMeta.textContent = `${activeRewrite.tone || tones[state.toneIndex]} · ${activeRewrite.audience || audiences[state.audienceIndex]}`;
     renderComparison(data.comparison || {}, text);
     renderDrift(data.back_translation || {});
 

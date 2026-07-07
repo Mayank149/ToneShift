@@ -42,38 +42,24 @@ class RewriteService:
         length: int,
         formality: int,
     ) -> dict[str, Any]:
-        target_tones = self._build_tone_set(tone)
-        rewrites = []
-
-        for chosen_tone in target_tones:
-            rewrite = self._generate_single_rewrite(
-                source_text=source_text,
-                tone=chosen_tone,
-                audience=audience,
-                length=length,
-                formality=formality,
-            )
-            rewrites.append(rewrite)
-
-        reference = next((item for item in rewrites if item["tone"] == tone), rewrites[0])
-        comparison = self._generate_comparison(source_text, reference["text"], tone, audience)
-        back_translation = self._generate_back_translation_check(source_text, reference["text"])
+        rewrite = self._generate_single_rewrite(
+            source_text=source_text,
+            tone=tone,
+            audience=audience,
+            length=length,
+            formality=formality,
+        )
+        comparison = self._generate_comparison(source_text, rewrite["text"], tone, audience)
+        back_translation = self._generate_back_translation_check(source_text, rewrite["text"])
 
         return {
             "source_text": source_text,
             "selected_tone": tone,
             "selected_audience": audience,
-            "rewrites": rewrites,
+            "rewrite": rewrite,
             "comparison": comparison,
             "back_translation": back_translation,
         }
-
-    def _build_tone_set(self, selected_tone: str) -> list[str]:
-        ordered = [selected_tone]
-        for tone in TONES:
-            if tone not in ordered:
-                ordered.append(tone)
-        return ordered[:4]
 
     def _generate_single_rewrite(
         self,
