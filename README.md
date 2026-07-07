@@ -1,21 +1,20 @@
 # ToneShift: Audience-Aware Rewriter
 
-A Flask + Groq app that rewrites one input text into multiple tones, compares the result against the source, and flags meaning drift with a back-translation check.
+A Flask + Groq app that rewrites text for a chosen tone and audience, then checks meaning preservation with comparison and back-translation.
 
 ## Features
 
-- Four tone variants from a single source input.
-- Tone and audience rotary selectors.
+- Tone and audience sliders.
+- One focused rewrite per request.
 - Length and formality sliders.
-- Comparison panel for meaning preservation.
-- Back-translation drift check.
+- Compact comparison and drift checks.
 
 ## Setup
 
 1. Create and activate a Python virtual environment.
 2. Install dependencies with `pip install -r requirements.txt`.
 3. Copy `.env.example` to `.env` and add your Groq API key.
-4. Run `python run.py`.
+4. Run `python run.py` for local development.
 
 ## Notes
 
