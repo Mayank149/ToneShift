@@ -2,6 +2,8 @@
 
 A Flask + Groq app that rewrites text for a chosen tone and audience, then checks meaning preservation with comparison and back-translation.
 
+![ToneShift demo](toneshift%20demo.png)
+
 ## Features
 
 - Tone and audience sliders.
